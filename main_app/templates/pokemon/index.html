@@ -1,21 +1,24 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
 <h1> Pokedex </h1>
 
 {% for poke in pokemon %}
+<a href="{% url 'detail' poke.id %}">
   <div class="card">
     <div class="card-content">
       <span class="card-title">{{ poke.name }}</span>
-      <p>Breed: {{ poke.breed }}</p>
-      <p>Description: {{ poke.attack}}</p>
+      <p>Element: {{ poke.element }}</p>
+      <p>Attack: {{ poke.attack}}</p>
       {% if poke.hp > 0 %}
-        <p>Age: {{ poke.age }}</p>
+        <p>HP: {{ poke.hp}}</p>
       {% else %}
-        <p>Age: Kitten</p>
+        <p>hp: Low level</p>
       {% endif %}
     </div>
   </div>
+
 {% endfor %}
 
 {% endblock %}

@@ -2,19 +2,8 @@ from django.shortcuts import render
 
 # Add the following import
 from django.http import HttpResponse
-#Add the Cat class & list and view function below the imports
-class Poke:  # Note that parens are optional if not inheriting from another class
-  def __init__(self, name, breed, attack, hp):
-    self.name = name
-    self.breed = breed
-    self.attack = attack
-    self.hp = hp
+from .models import Poke 
 
-pokemon = [
-    Poke('Charizard', 'fire', 'Fire spin', 150),
-    Poke('Pikachu', 'electric', 'thunderbolt', 190),
-    Poke('Beedrill', 'grass', 'Poison sting', 80)
-]
 
 # Define the home view
 def home(request):
@@ -27,4 +16,9 @@ def about(request):
     return render(request, 'about.html')
 
 def pokemon_index(request):
+    pokemon = Poke.objects.all()
     return render(request, 'pokemon/index.html', {'pokemon': pokemon})
+
+def pokemon_detail(request, poke_id):
+    poke = Poke.objects.get(id=poke_id)
+    return render(request, 'pokemon/detail.html', { 'poke': poke })
