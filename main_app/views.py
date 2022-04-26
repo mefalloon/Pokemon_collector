@@ -1,13 +1,23 @@
 from django.shortcuts import render
 #import the create view class
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # Add the following import
 from django.http import HttpResponse
 from .models import Poke 
-
+# the template the create view and the update view use is the same 
+#templates /<appname
 class PokeCreate(CreateView):
     model = Poke
     fields = '__all__'
+    success_url = '/pokemon/'
+
+class PokeUpdate(UpdateView):
+    model = Poke
+    # Let's disallow the renaming of a cat by excluding the name field!
+    fields = ['element', 'attack', 'hp']
+
+class PokeDelete(DeleteView):
+    model = Poke
     success_url = '/pokemon/'
 
 # Define the home view
