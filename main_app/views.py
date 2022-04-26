@@ -8,6 +8,7 @@ from .models import Poke
 class PokeCreate(CreateView):
     model = Poke
     fields = '__all__'
+    success_url = '/pokemon/'
 
 # Define the home view
 def home(request):
