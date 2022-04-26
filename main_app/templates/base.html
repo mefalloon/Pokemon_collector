@@ -19,8 +19,10 @@
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;PokemonCollector</a></li>
         </ul>
         <ul class="right">
-        <li><a href="/pokemon">All Pokemon</a></li>
-        <li><a href="/about">About</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+<!-- new link below -->
+          <li><a href="{% url 'pokemon_create' %}">Add a Pokemon</a></li>
+          <li><a href="{% url 'index' %}">View All My Pokemon</a></li>
         </ul> 
       </div>
     </nav>
