@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # Add the following import
 from django.http import HttpResponse
 from .models import Poke 
+from .forms import TrainingForm
 # the template the create view and the update view use is the same 
 #templates /<appname
 class PokeCreate(CreateView):
@@ -36,5 +37,8 @@ def pokemon_index(request):
 
 def pokemon_detail(request, poke_id):
     poke = Poke.objects.get(id=poke_id)
-    return render(request, 'pokemon/detail.html', { 'poke': poke })
+    training_form = TrainingForm()
+    return render(request, 'pokemon/detail.html', {
+    'poke': poke, 'training_form': training_form 
+    })
 
