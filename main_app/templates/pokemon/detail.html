@@ -9,20 +9,20 @@
         <span class="card-title">{{ poke.name }}</span>
         <p>Element: {{ poke.element }}</p>
         <p>Attack: {{ poke.attack }}</p>
-    {% if poke.hp > 0 %}
+      {% if poke.hp > 0 %}
       <p>HP: {{ poke.hp }}</p>
-    {% else %}
+      {% else %}
       <p>HP: low level</p>
-    {% endif %}
-  </div>
+      {% endif %}
+    </div>
   <div class="card-action">
     <a href="{% url 'pokemon_update' poke.id %}">Edit</a>
     <a href="{% url 'pokemon_delete' poke.id %}">Delete</a>
+    </div>
   </div>
 </div>
-</div>
 <div class="col s6">
-<form method="post">
+  <form method="post" action="{% url 'add_training' poke.id %}">
     {% csrf_token %}
     {{ training_form.as_p }}
     <input type="submit" class="btn" value="Add Training">
@@ -49,7 +49,12 @@
     defaultDate: new Date(),
     setDefaultDate: true,
     autoClose: true
-  });
+  })
+
+  const selectEl = document.getElementById('id_fight');
+  M.FormSelect.init(selectEl);
+
+
 
 </script>
 {% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 #import the create view class
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # Add the following import
@@ -10,7 +10,7 @@ from .forms import TrainingForm
 class PokeCreate(CreateView):
     model = Poke
     fields = '__all__'
-    success_url = '/pokemon/'
+
 
 class PokeUpdate(UpdateView):
     model = Poke
@@ -25,8 +25,6 @@ class PokeDelete(DeleteView):
 def home(request):
     return HttpResponse('<h1>Hello /ᐠ｡‸｡ᐟ\ﾉ</h1>')
 
-def about(request):
-    return HttpResponse('<h1>About the Pokedex</h1>')
 
 def about(request):
     return render(request, 'about.html')
@@ -38,7 +36,20 @@ def pokemon_index(request):
 def pokemon_detail(request, poke_id):
     poke = Poke.objects.get(id=poke_id)
     training_form = TrainingForm()
+    
     return render(request, 'pokemon/detail.html', {
     'poke': poke, 'training_form': training_form 
     })
 
+def add_training(request, poke_id):
+
+    #create a model form instance using the data in the request 
+    form = TrainingForm(request.POST)
+    #validate
+    if form.is_valid():
+        #do something
+        new_training = form.save(commit=False)
+        new_training.poke_id = poke_id
+        new_training.save()
+
+    return redirect('detail', poke_id=poke_id)
